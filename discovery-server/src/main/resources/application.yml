@@ -7,7 +7,12 @@ spring:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: false # Eureka server should not register itself
+    fetch-registry: false # Eureka server does not need to fetch registry
   server:
+    # Self-preservation disabled for local/dev so that instances that do not
+    # send a heart-beat within the expected time are removed from the registry.
+    # and keep the eureka dashboard true to the actual state of registered instances.
+    # In production, this MUST be true to avoid mass service eviction
+    # during temporary network issues.
     enable-self-preservation: false
